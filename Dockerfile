@@ -13,6 +13,9 @@ WORKDIR /var/www/html
 # Copy the website files from our repository into the container
 COPY . .
 
+# Copy our custom apache config
+COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
+
 # Create a .env file for production build scripts
 RUN echo "APP_ENV=prod\nDATABASE_URL=postgres://user:pass@example.com:5432/db" > .env
 
