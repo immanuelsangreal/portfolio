@@ -22,8 +22,11 @@ RUN echo "APP_ENV=prod\nDATABASE_URL=postgres://user:pass@example.com:5432/db" >
 # Allow composer to run as root with plugins
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-# Install dependencies and run scripts
+# Install dependencies but do not run scripts
 RUN composer install --no-dev --optimize-autoloader --no-scripts
+
+# Create the var directory before setting permissions
+RUN mkdir -p var/cache var/log
 
 # Set the correct file permissions for Symfony's cache/log folders
 RUN chown -R www-data:www-data var
