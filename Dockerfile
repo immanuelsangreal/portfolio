@@ -18,7 +18,7 @@ RUN echo "APP_ENV=prod\nDATABASE_URL=postgres://user:pass@example.com:5432/db" >
 
 # Allow Composer to run as root and install all dependencies
 ENV COMPOSER_ALLOW_SUPERUSER=1
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader --no-scripts
 
 # Expose the port Render will use
 EXPOSE 10000
