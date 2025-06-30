@@ -23,7 +23,7 @@ RUN echo "APP_ENV=prod\nDATABASE_URL=postgres://user:pass@example.com:5432/db" >
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
 # Install dependencies and run scripts
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader --no-scripts
 
 # Set the correct file permissions for Symfony's cache/log folders
 RUN chown -R www-data:www-data var
