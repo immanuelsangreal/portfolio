@@ -146,6 +146,9 @@ a.forEach(item => {
         cursor.classList.remove('hover');
     });
 })
+// =======================================================================================
+//  My Custom Code for Portfolio Video Popup
+// =======================================================================================
 document.addEventListener("DOMContentLoaded", function() {
     const popup = document.querySelector('.portfolio-popup');
     if (!popup) {
@@ -161,6 +164,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const openPopup = (title, videoUrl) => {
         if (!popupTitle || !popupIframe) return;
         popupTitle.textContent = title;
+        // Add autoplay and other params for a better experience
         popupIframe.setAttribute('src', `${videoUrl}?autoplay=1&rel=0&showinfo=0`); 
         document.body.classList.add('model-open');
     };
@@ -188,6 +192,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     if (popup) {
          popup.addEventListener('click', function(e) {
+            // Close if clicking on the background overlay itself, not its children
             if (e.target === popup) {
                 closePopup();
             }
