@@ -146,41 +146,51 @@ a.forEach(item => {
         cursor.classList.remove('hover');
     });
 })
-// =======================================================================================
-//  My Custom Code for Portfolio Video Popup
-// =======================================================================================
 document.addEventListener("DOMContentLoaded", function() {
-    const portfolioItems = document.querySelectorAll('.click-here');
     const popup = document.querySelector('.portfolio-popup');
+    if (!popup) {
+        console.error('Portfolio popup element not found');
+        return;
+    }
+
     const popupTitle = popup.querySelector('.popup-title');
     const popupIframe = popup.querySelector('iframe');
     const closeBtn = popup.querySelector('.popup-close-btn');
+    const popupContainer = popup.querySelector('.popup-container');
 
-    portfolioItems.forEach(item => {
+    const openPopup = (title, videoUrl) => {
+        if (!popupTitle || !popupIframe) return;
+        popupTitle.textContent = title;
+        popupIframe.setAttribute('src', `${videoUrl}?autoplay=1&rel=0&showinfo=0`); 
+        document.body.classList.add('model-open');
+    };
+
+    const closePopup = () => {
+        document.body.classList.remove('model-open');
+        if (popupIframe) {
+            popupIframe.setAttribute('src', ''); 
+        }
+    };
+
+    document.querySelectorAll('.click-here').forEach(item => {
         item.addEventListener('click', function(e) {
             e.preventDefault();
-
             const videoUrl = this.getAttribute('data-video-url');
-            const projectTitle = this.querySelector('a').textContent;
-
-            popupTitle.textContent = projectTitle;
-            popupIframe.setAttribute('src', videoUrl);
-
-            document.body.classList.add('model-open');
+            const title = this.getAttribute('data-title');
+            if (videoUrl && title) {
+                openPopup(title, videoUrl);
+            }
         });
     });
 
-    const closePopup = function() {
-        document.body.classList.remove('model-open');
-        popupIframe.setAttribute('src', '');
-        popupTitle.textContent = '';
-    };
-
-    closeBtn.addEventListener('click', closePopup);
-
-    popup.addEventListener('click', function(e) {
-        if (e.target === this) {
-            closePopup();
-        }
-    });
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closePopup);
+    }
+    if (popup) {
+         popup.addEventListener('click', function(e) {
+            if (e.target === popup) {
+                closePopup();
+            }
+        });
+    }
 });
