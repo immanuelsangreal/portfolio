@@ -5425,6 +5425,8 @@ Location:
 .portfolio-item {
   cursor: pointer;
   position: relative;
+  width: 100%;
+  margin-bottom: 30px;
 }
 
 .portfolio-item .thumbnail {
