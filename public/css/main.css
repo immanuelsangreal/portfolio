@@ -5416,6 +5416,10 @@ Location:
 }
 
 /*============= SKILL CSS AREA ENDS ===============*//*# sourceMappingURL=main.css.map */
+/* =============================================
+   Portfolio Video Player Styles
+   ============================================= */
+
 .portfolio-grid {
   display: flex;
   flex-wrap: wrap;
@@ -5433,6 +5437,7 @@ Location:
   position: relative;
   overflow: hidden;
   border-radius: 8px;
+  transition: all 0.3s ease;
 }
 
 .portfolio-item .thumbnail img {
@@ -5453,21 +5458,40 @@ Location:
   color: white;
   padding: 10px 16px;
   border-radius: 50%;
+  transition: all 0.3s ease;
+  pointer-events: none; /* Prevents clicks on the button itself */
 }
 
-.portfolio-item iframe {
-  width: 100%;
-  display: block;
-  margin-top: 10px;
+.portfolio-item:hover .thumbnail {
+  transform: scale(1.03);
+}
+
+/* This is our new responsive container.
+  It's hidden by default and uses padding-top to create the aspect ratio.
+*/
+.portfolio-item .video-container {
+  position: relative;
+  padding-top: 56.25%; /* Default: 16:9 Aspect Ratio (9 / 16 = 0.5625) */
+  height: 0;
+  overflow: hidden;
   border-radius: 8px;
+  background-color: #000; /* Black background while video loads */
+  display: none; /* Hidden initially */
 }
 
-.portfolio-item.vertical iframe {
-  height: 500px;
+/* This makes the iframe fill the responsive container */
+.portfolio-item .video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 
-.portfolio-item.horizontal iframe {
-  height: 280px;
+/* Override padding-top for our vertical (9:16) videos */
+.portfolio-item.vertical .video-container {
+  padding-top: 177.77%; /* 9:16 Aspect Ratio (16 / 9 = 1.7777) */
 }
 /*
 ============================
