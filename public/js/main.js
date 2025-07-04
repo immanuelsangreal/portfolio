@@ -146,3 +146,30 @@ a.forEach(item => {
         cursor.classList.remove('hover');
     });
 })
+let currentVideo = null;
+
+document.querySelectorAll('.portfolio-item').forEach(item => {
+  item.addEventListener('click', () => {
+    if (currentVideo && currentVideo !== item) {
+      // Reset old video
+      const oldIframe = currentVideo.querySelector('iframe');
+      if (oldIframe) oldIframe.remove();
+      currentVideo.querySelector('.thumbnail').style.display = 'block';
+    }
+
+    const videoUrl = item.getAttribute('data-video') + '?autoplay=1';
+    const iframe = document.createElement('iframe');
+    iframe.src = videoUrl;
+    iframe.setAttribute('frameborder', '0');
+    iframe.setAttribute('allowfullscreen', '');
+    iframe.setAttribute('allow', 'autoplay');
+
+    iframe.style.width = '100%';
+    iframe.style.height = item.classList.contains('vertical') ? '500px' : '280px';
+
+    item.querySelector('.thumbnail').style.display = 'none';
+    item.appendChild(iframe);
+
+    currentVideo = item;
+  });
+});
