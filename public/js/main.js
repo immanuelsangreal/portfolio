@@ -146,31 +146,3 @@ a.forEach(item => {
         cursor.classList.remove('hover');
     });
 })
-let currentVideo = null;
-
-document.querySelectorAll('.portfolio-item').forEach(item => {
-  item.addEventListener('click', () => {
-    // Reset previous video
-    if (currentVideo && currentVideo !== item) {
-      const oldWrapper = currentVideo.querySelector('.video-wrapper');
-      if (oldWrapper) oldWrapper.remove();
-      currentVideo.querySelector('.thumbnail').style.display = 'block';
-    }
-
-    // Get height based on class
-    const isVertical = item.classList.contains('vertical');
-    const height = isVertical ? 500 : 280;
-
-    // Create wrapper with iframe
-    const wrapper = document.createElement('div');
-    wrapper.className = 'video-wrapper';
-    wrapper.style.height = height + 'px';
-    wrapper.innerHTML = `<iframe src="${item.dataset.video}?autoplay=1" frameborder="0" allowfullscreen allow="autoplay"></iframe>`;
-
-    // Hide thumbnail and insert video
-    item.querySelector('.thumbnail').style.display = 'none';
-    item.appendChild(wrapper);
-
-    currentVideo = item;
-  });
-});
