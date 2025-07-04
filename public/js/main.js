@@ -150,24 +150,26 @@ let currentVideo = null;
 
 document.querySelectorAll('.portfolio-item').forEach(item => {
   item.addEventListener('click', () => {
+    // Reset previous video
     if (currentVideo && currentVideo !== item) {
-      const oldIframe = currentVideo.querySelector('iframe');
-      if (oldIframe) oldIframe.remove();
+      const oldWrapper = currentVideo.querySelector('.video-wrapper');
+      if (oldWrapper) oldWrapper.remove();
       currentVideo.querySelector('.thumbnail').style.display = 'block';
     }
 
-    const videoUrl = item.getAttribute('data-video') + '?autoplay=1';
-    const iframe = document.createElement('iframe');
-    iframe.src = videoUrl;
-    iframe.setAttribute('frameborder', '0');
-    iframe.setAttribute('allowfullscreen', '');
-    iframe.setAttribute('allow', 'autoplay');
+    // Get height based on class
+    const isVertical = item.classList.contains('vertical');
+    const height = isVertical ? 500 : 280;
 
-    iframe.style.width = '100%';
-    iframe.style.height = item.classList.contains('vertical') ? '500px' : '280px';
+    // Create wrapper with iframe
+    const wrapper = document.createElement('div');
+    wrapper.className = 'video-wrapper';
+    wrapper.style.height = height + 'px';
+    wrapper.innerHTML = `<iframe src="${item.dataset.video}?autoplay=1" frameborder="0" allowfullscreen allow="autoplay"></iframe>`;
 
+    // Hide thumbnail and insert video
     item.querySelector('.thumbnail').style.display = 'none';
-    item.appendChild(iframe);
+    item.appendChild(wrapper);
 
     currentVideo = item;
   });
