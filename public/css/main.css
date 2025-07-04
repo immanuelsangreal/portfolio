@@ -5469,3 +5469,23 @@ Location:
 .portfolio-item.horizontal iframe {
   height: 280px;
 }
+/*
+============================
+CTO Custom Fix for Portfolio Titles
+============================
+*/
+.portfolio-item .video-title {
+  color: var(--ztc-text-text-1);
+  font-family: var(--ztc-family-font1);
+  font-size: var(--ztc-font-size-font-s24);
+  font-style: normal;
+  font-weight: var(--ztc-weight-semibold);
+  line-height: 32px;
+  display: inline-block;
+  transition: all 0.4s;
+}
+
+.portfolio-item:hover .video-title {
+  color: var(--ztc-bg-btn-bg1);
+  transition: all 0.4s;
+}
