@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // background=1 makes the player chromeless (less Vimeo UI).
       // muted=1 is often required for autoplay to work in modern browsers.
       // title=0&byline=0&portrait=0 removes extra text overlays.
-      const videoUrl = this.getAttribute('data-video') + '?autoplay=1&background=1&muted=1&title=0&byline=0&portrait=0';
+      const videoUrl = this.getAttribute('data-video') + '?autoplay=1&title=0&byline=0&portrait=0';
       
       const iframe = document.createElement('iframe');
       iframe.setAttribute('src', videoUrl);
