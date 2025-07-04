@@ -5416,16 +5416,31 @@ Location:
 }
 
 /*============= SKILL CSS AREA ENDS ===============*//*# sourceMappingURL=main.css.map */
+.portfolio-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
 .portfolio-item {
-  margin-bottom: 32px;
   cursor: pointer;
   position: relative;
+  width: 100%;
+  margin-bottom: 30px;
 }
 
 .portfolio-item .thumbnail {
   position: relative;
-  display: block;
   overflow: hidden;
+  border-radius: 8px;
+}
+
+.portfolio-item .thumbnail img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
 .portfolio-item .play-button {
@@ -5434,16 +5449,29 @@ Location:
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 32px;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.5);
   color: white;
   padding: 10px 16px;
   border-radius: 50%;
-  transition: 0.3s;
 }
 
 .portfolio-item iframe {
   width: 100%;
   display: block;
-  border-radius: 8px;
   margin-top: 10px;
+  border-radius: 8px;
+}
+
+.portfolio-item.vertical iframe {
+  height: 500px;
+}
+
+.portfolio-item.horizontal iframe {
+  height: 280px;
+}
+
+.video-title {
+  margin-top: 12px;
+  font-weight: 600;
+  color: white;
 }
