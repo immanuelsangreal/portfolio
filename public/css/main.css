@@ -5456,11 +5456,17 @@ Location:
 }
 
 .portfolio-item iframe {
-  width: 100%;
-  display: block;
-  margin-top: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  border: none;
   border-radius: 8px;
+  object-fit: cover;
+  z-index: 1;
 }
+
 
 .portfolio-item.vertical iframe {
   height: 500px;
