@@ -146,29 +146,55 @@ a.forEach(item => {
         cursor.classList.remove('hover');
     });
 })
-let currentVideo = null;
+document.addEventListener('DOMContentLoaded', function() {
+  let currentVideoItem = null;
 
-document.querySelectorAll('.portfolio-item').forEach(item => {
-  item.addEventListener('click', () => {
-    if (currentVideo && currentVideo !== item) {
-      const oldIframe = currentVideo.querySelector('iframe');
-      if (oldIframe) oldIframe.remove();
-      currentVideo.querySelector('.thumbnail').style.display = 'block';
-    }
+  document.querySelectorAll('.portfolio-item').forEach(item => {
+    item.addEventListener('click', function() {
+      // If a video is already playing in another item, we need to stop it.
+      if (currentVideoItem && currentVideoItem !== this) {
+        const oldContainer = currentVideoItem.querySelector('.video-container');
+        const oldThumbnail = currentVideoItem.querySelector('.thumbnail');
+        
+        if (oldContainer) {
+          oldContainer.innerHTML = ''; // Remove the old iframe
+          oldContainer.style.display = 'none'; // Hide the container
+        }
+        if (oldThumbnail) {
+          oldThumbnail.style.display = 'block'; // Show the old thumbnail again
+        }
+      }
+      
+      const thumbnail = this.querySelector('.thumbnail');
+      const videoContainer = this.querySelector('.video-container');
+      
+      // If the user clicks the same item again, don't do anything.
+      if (videoContainer.querySelector('iframe')) {
+        return;
+      }
 
-    const videoUrl = item.getAttribute('data-video') + '?autoplay=1';
-    const iframe = document.createElement('iframe');
-    iframe.src = videoUrl;
-    iframe.setAttribute('frameborder', '0');
-    iframe.setAttribute('allowfullscreen', '');
-    iframe.setAttribute('allow', 'autoplay');
+      // I've added some extra params for a better playback experience:
+      // background=1 makes the player chromeless (less Vimeo UI).
+      // muted=1 is often required for autoplay to work in modern browsers.
+      // title=0&byline=0&portrait=0 removes extra text overlays.
+      const videoUrl = this.getAttribute('data-video') + '?autoplay=1&background=1&muted=1&title=0&byline=0&portrait=0';
+      
+      const iframe = document.createElement('iframe');
+      iframe.setAttribute('src', videoUrl);
+      iframe.setAttribute('frameborder', '0');
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('allow', 'autoplay; picture-in-picture');
 
-    iframe.style.width = '100%';
-    iframe.style.height = item.classList.contains('vertical') ? '500px' : '280px';
+      // Add the new iframe to our container and show it.
+      videoContainer.innerHTML = ''; // Clear it first just in case.
+      videoContainer.appendChild(iframe);
+      videoContainer.style.display = 'block';
 
-    item.querySelector('.thumbnail').style.display = 'none';
-    item.appendChild(iframe);
+      // Hide the thumbnail.
+      thumbnail.style.display = 'none';
 
-    currentVideo = item;
+      // Set this item as the one with the currently playing video.
+      currentVideoItem = this;
+    });
   });
 });
