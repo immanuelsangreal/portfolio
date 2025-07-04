@@ -151,7 +151,6 @@ let currentVideo = null;
 document.querySelectorAll('.portfolio-item').forEach(item => {
   item.addEventListener('click', () => {
     if (currentVideo && currentVideo !== item) {
-      // Reset old video
       const oldIframe = currentVideo.querySelector('iframe');
       if (oldIframe) oldIframe.remove();
       currentVideo.querySelector('.thumbnail').style.display = 'block';
