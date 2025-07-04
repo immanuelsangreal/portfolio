@@ -158,7 +158,6 @@ document.querySelectorAll('.portfolio-item').forEach(item => {
 
     const videoUrl = item.getAttribute('data-video') + '?autoplay=1';
     const iframe = document.createElement('iframe');
-    iframe.className = 'portfolio-video-player';
     iframe.src = videoUrl;
     iframe.setAttribute('frameborder', '0');
     iframe.setAttribute('allowfullscreen', '');
