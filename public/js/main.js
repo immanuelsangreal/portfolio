@@ -1,7 +1,54 @@
-; (function ($) {
+;(function ($) {
+    'use strict';
 
+    // Function to handle the popup logic
+    const setupCtaPopup = () => {
+        const ctaPopup = document.querySelector('#cta-popup');
+        if (!ctaPopup) {
+            // If the popup doesn't exist on the page, do nothing.
+            return;
+        }
+
+        const body = document.body;
+        const closeBtn = ctaPopup.querySelector('.cta-close-btn');
+        const bgOverlay = ctaPopup.querySelector('.bg-overlay');
+        const triggerButtons = document.querySelectorAll('.cta-popup-trigger');
+
+        const openCtaPopup = (e) => {
+            e.preventDefault();
+            body.classList.add('model-open');
+            const iframe = ctaPopup.querySelector('iframe');
+            if (iframe && iframe.src.includes('vimeo')) {
+                // Start video playback when opening
+                iframe.setAttribute('src', iframe.src.replace('autoplay=0', 'autoplay=1'));
+            }
+        };
+
+        const closeCtaPopup = () => {
+            body.classList.remove('model-open');
+            const iframe = ctaPopup.querySelector('iframe');
+            if (iframe && iframe.src.includes('vimeo')) {
+                // Stop video playback when closing
+                iframe.setAttribute('src', iframe.src.replace('autoplay=1', 'autoplay=0'));
+            }
+        };
+
+        // Attach event listeners to all trigger buttons
+        triggerButtons.forEach(button => {
+            button.addEventListener('click', openCtaPopup);
+        });
+
+        // Attach event listeners for closing the popup
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeCtaPopup);
+        }
+        if (bgOverlay) {
+            bgOverlay.addEventListener('click', closeCtaPopup);
+        }
+    };
+
+    // jQuery-dependent scripts
     $(document).ready(function () {
-
         //========== SIDEBAR/SEARCH AREA ============= //
         $(".hamburger_menu").on("click", function (e) {
             e.preventDefault();
@@ -17,26 +64,25 @@
             $('.body-overlay').removeClass('active');
             $('.hamburger_menu').removeClass('active');
         });
-        //========== SIDEBAR/SEARCH AREA ============= //
 
-        //========== PAGE PROGRESS STARTS ============= // 
+        //========== PAGE PROGRESS STARTS ============= //
         var progressPath = document.querySelector(".progress-wrap path");
-        var pathLength = progressPath.getTotalLength();
-        progressPath.style.transition = progressPath.style.WebkitTransition =
-            "none";
-        progressPath.style.strokeDasharray = pathLength + " " + pathLength;
-        progressPath.style.strokeDashoffset = pathLength;
-        progressPath.getBoundingClientRect();
-        progressPath.style.transition = progressPath.style.WebkitTransition =
-            "stroke-dashoffset 10ms linear";
-        var updateProgress = function () {
-            var scroll = $(window).scrollTop();
-            var height = $(document).height() - $(window).height();
-            var progress = pathLength - (scroll * pathLength) / height;
-            progressPath.style.strokeDashoffset = progress;
-        };
-        updateProgress();
-        $(window).scroll(updateProgress);
+        if (progressPath) {
+            var pathLength = progressPath.getTotalLength();
+            progressPath.style.transition = progressPath.style.WebkitTransition = "none";
+            progressPath.style.strokeDasharray = pathLength + " " + pathLength;
+            progressPath.style.strokeDashoffset = pathLength;
+            progressPath.getBoundingClientRect();
+            progressPath.style.transition = progressPath.style.WebkitTransition = "stroke-dashoffset 10ms linear";
+            var updateProgress = function () {
+                var scroll = $(window).scrollTop();
+                var height = $(document).height() - $(window).height();
+                var progress = pathLength - (scroll * pathLength) / height;
+                progressPath.style.strokeDashoffset = progress;
+            };
+            updateProgress();
+            $(window).scroll(updateProgress);
+        }
         var offset = 50;
         var duration = 550;
         jQuery(window).on("scroll", function () {
@@ -51,204 +97,139 @@
             jQuery("html, body").animate({ scrollTop: 0 }, duration);
             return false;
         });
-        //========== PAGE PROGRESS STARTS ============= // 
 
-        //========== VIDEO POPUP STARTS ============= //
+        //========== VIDEO POPUP (Magnific) ============= //
         if ($(".popup-youtube").length > 0) {
             $(".popup-youtube").magnificPopup({
                 type: "iframe",
             });
         }
-        //========== VIDEO POPUP ENDS ============= //
-        AOS.init;
+
+        //========== AOS INIT ============= //
         AOS.init({ disable: 'mobile' });
 
         //========== NICE SELECT ============= //
         $('select').niceSelect();
 
+        //========== COUNTER UP============= //
+        const ucounter = $('.counter');
+        if (ucounter.length > 0) {
+            ucounter.countUp();
+        }
     });
-    //========== COUNTER UP============= //
-    const ucounter = $('.counter');
-    if (ucounter.length > 0) {
-        ucounter.countUp();
-    };
+
+    // Vanilla JS scripts that run after the DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        // Setup for the main CTA popup
+        setupCtaPopup();
+
+        // Setup for the portfolio video player
+        let currentVideoItem = null;
+        document.querySelectorAll('.portfolio-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                if (e.target.closest('.video-container')) {
+                    return; // Do nothing if the click is inside an already open video
+                }
+
+                if (currentVideoItem === this) {
+                    const videoContainer = this.querySelector('.video-container');
+                    const thumbnail = this.querySelector('.thumbnail');
+                    if (videoContainer) {
+                        videoContainer.innerHTML = '';
+                        videoContainer.style.display = 'none';
+                    }
+                    if (thumbnail) {
+                        thumbnail.style.display = 'block';
+                    }
+                    currentVideoItem = null;
+                    return;
+                }
+
+                if (currentVideoItem) {
+                    const oldContainer = currentVideoItem.querySelector('.video-container');
+                    const oldThumbnail = currentVideoItem.querySelector('.thumbnail');
+                    if (oldContainer) {
+                        oldContainer.innerHTML = '';
+                        oldContainer.style.display = 'none';
+                    }
+                    if (oldThumbnail) {
+                        oldThumbnail.style.display = 'block';
+                    }
+                }
+
+                const thumbnail = this.querySelector('.thumbnail');
+                const videoContainer = this.querySelector('.video-container');
+                const videoUrl = this.getAttribute('data-video') + '?autoplay=1&loop=1&controls=0&title=0&byline=0&portrait=0&muted=1';
+                const iframe = document.createElement('iframe');
+                iframe.setAttribute('src', videoUrl);
+                iframe.setAttribute('frameborder', '0');
+                iframe.setAttribute('allowfullscreen', '');
+                iframe.setAttribute('allow', 'autoplay; picture-in-picture');
+                videoContainer.innerHTML = '';
+                videoContainer.appendChild(iframe);
+                videoContainer.style.display = 'block';
+                if (thumbnail) {
+                    thumbnail.style.display = 'none';
+                }
+                currentVideoItem = this;
+            });
+
+            item.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+            });
+        });
+
+        // Theme toggle functionality
+        const toggleButton = document.getElementById('theme-toggle');
+        if(toggleButton) {
+            if (localStorage.getItem('theme') === 'light') {
+                document.body.classList.add('light-mode');
+                toggleButton.checked = true;
+            }
+            toggleButton.addEventListener('change', () => {
+                document.body.classList.toggle('light-mode');
+                if (document.body.classList.contains('light-mode')) {
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    localStorage.removeItem('theme');
+                }
+            });
+        }
+
+        // Custom cursor functionality
+        var cursor = document.querySelector('.procus-cursor');
+        var cursorinner = document.querySelector('.procus-cursor2');
+        if(cursor && cursorinner) {
+            var a = document.querySelectorAll('a');
+            document.addEventListener('mousemove', function (e) {
+                cursor.style.transform = `translate3d(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%), 0)`
+                cursorinner.style.left = e.clientX + 'px';
+                cursorinner.style.top = e.clientY + 'px';
+            });
+            document.addEventListener('mousedown', function () {
+                cursor.classList.add('click');
+                cursorinner.classList.add('cursorinnerhover')
+            });
+            document.addEventListener('mouseup', function () {
+                cursor.classList.remove('click')
+                cursorinner.classList.remove('cursorinnerhover')
+            });
+            a.forEach(item => {
+                item.addEventListener('mouseover', () => {
+                    cursor.classList.add('hover');
+                });
+                item.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('hover');
+                });
+            });
+        }
+    });
 
     //========== PRELOADER ============= //
     $(window).on("load", function (event) {
         setTimeout(function () {
             $("#preloader").fadeToggle();
         }, 200);
-
     });
 
 })(jQuery);
-
-//========== GSAP AREA ============= //
-if ($('.reveal').length) { gsap.registerPlugin(ScrollTrigger); let revealContainers = document.querySelectorAll(".reveal"); revealContainers.forEach((container) => { let image = container.querySelector("img"); let tl = gsap.timeline({ scrollTrigger: { trigger: container, toggleActions: "play none none none" } }); tl.set(container, { autoAlpha: 1 }); tl.from(container, 1.5, { xPercent: -100, ease: Power2.out }); tl.from(image, 1.5, { xPercent: 100, scale: 1.3, delay: -1.5, ease: Power2.out }); }); }
-
-// Theme toggle functionality
-const toggleButton = document.getElementById('theme-toggle');
-if (localStorage.getItem('theme') === 'dark') {
-    document.body.classList.add('light-mode');
-    toggleButton.checked = true;
-}
-toggleButton.addEventListener('change', () => {
-    document.body.classList.toggle('light-mode');
-
-    if (document.body.classList.contains('light-mode')) {
-        localStorage.setItem('theme', 'light');
-    } else {
-        localStorage.setItem('theme', 'dark-mode');
-    }
-});
-
-// UPDATE: I was able to get this working again... Enjoy!
-var cursor = document.querySelector('.procus-cursor');
-var cursorinner = document.querySelector('.procus-cursor2');
-var a = document.querySelectorAll('a');
-
-document.addEventListener('mousemove', function (e) {
-    var x = e.clientX;
-    var y = e.clientY;
-    cursor.style.transform = `translate3d(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%), 0)`
-});
-
-document.addEventListener('mousemove', function (e) {
-    var x = e.clientX;
-    var y = e.clientY;
-    cursorinner.style.left = x + 'px';
-    cursorinner.style.top = y + 'px';
-});
-
-document.addEventListener('mousedown', function () {
-    cursor.classList.add('click');
-    cursorinner.classList.add('cursorinnerhover')
-});
-
-document.addEventListener('mouseup', function () {
-    cursor.classList.remove('click')
-    cursorinner.classList.remove('cursorinnerhover')
-});
-
-a.forEach(item => {
-    item.addEventListener('mouseover', () => {
-        cursor.classList.add('hover');
-    });
-    item.addEventListener('mouseleave', () => {
-        cursor.classList.remove('hover');
-    });
-})
-document.addEventListener('DOMContentLoaded', function() {
-  let currentVideoItem = null;
-
-  document.querySelectorAll('.portfolio-item').forEach(item => {
-    // --- FEATURE: Click to play or pause ---
-    item.addEventListener('click', function() {
-      // If the clicked item is the one already playing, we close it.
-      if (currentVideoItem === this) {
-        const videoContainer = this.querySelector('.video-container');
-        const thumbnail = this.querySelector('.thumbnail');
-        
-        if (videoContainer) {
-          videoContainer.innerHTML = '';
-          videoContainer.style.display = 'none';
-        }
-        if (thumbnail) {
-          thumbnail.style.display = 'block';
-        }
-        
-        currentVideoItem = null;
-        return;
-      }
-
-      // Closes the previously playing video when a new one is clicked
-      if (currentVideoItem) {
-        const oldContainer = currentVideoItem.querySelector('.video-container');
-        const oldThumbnail = currentVideoItem.querySelector('.thumbnail');
-        
-        if (oldContainer) {
-          oldContainer.innerHTML = '';
-          oldContainer.style.display = 'none';
-        }
-        if (oldThumbnail) {
-          oldThumbnail.style.display = 'block';
-        }
-      }
-      
-      const thumbnail = this.querySelector('.thumbnail');
-      const videoContainer = this.querySelector('.video-container');
-      const videoUrl = this.getAttribute('data-video') + '?autoplay=1&loop=1&controls=0&title=0&byline=0&portrait=0';
-      
-      const iframe = document.createElement('iframe');
-      iframe.setAttribute('src', videoUrl);
-      iframe.setAttribute('frameborder', '0');
-      iframe.setAttribute('allowfullscreen', '');
-      iframe.setAttribute('allow', 'autoplay; picture-in-picture');
-
-      // --- NEW: Add a transparent overlay to capture clicks on the video itself ---
-      const clickOverlay = document.createElement('div');
-      clickOverlay.style.position = 'absolute';
-      clickOverlay.style.top = '0';
-      clickOverlay.style.left = '0';
-      clickOverlay.style.width = '100%';
-      clickOverlay.style.height = '100%';
-      clickOverlay.style.zIndex = '1'; // Ensures it's on top of the iframe
-
-      // Add both the iframe and the overlay to the container
-      videoContainer.innerHTML = '';
-      videoContainer.appendChild(iframe);
-      videoContainer.appendChild(clickOverlay); // The overlay sits on top
-      videoContainer.style.display = 'block';
-
-      thumbnail.style.display = 'none';
-      currentVideoItem = this;
-    });
-
-    // =======================================================================================
-    //  SANGREAL PORTFOLIO - CTO's CTA "Book Me" Popup Script
-    // =======================================================================================
-    document.addEventListener("DOMContentLoaded", function() {
-        const ctaPopup = document.querySelector('#cta-popup');
-        if (ctaPopup) {
-            const body = document.body;
-            const closeBtn = ctaPopup.querySelector('.cta-close-btn');
-            const bgOverlay = ctaPopup.querySelector('.bg-overlay');
-    
-            const openCtaPopup = () => {
-                body.classList.add('model-open');
-                ctaPopup.style.display = 'block';
-                const iframe = ctaPopup.querySelector('iframe');
-                if (iframe) {
-                    const originalSrc = iframe.getAttribute('src').split('?')[0];
-                    iframe.setAttribute('src', `${originalSrc}?autoplay=1&loop=1&autopause=0&muted=1&background=1`);
-                }
-            };
-    
-            const closeCtaPopup = () => {
-                body.classList.remove('model-open');
-                const iframe = ctaPopup.querySelector('iframe');
-                if (iframe) {
-                    iframe.setAttribute('src', iframe.getAttribute('src').replace("autoplay=1", "autoplay=0"));
-                }
-                ctaPopup.style.display = 'none';
-            };
-    
-            document.querySelectorAll('.cta-popup-trigger').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    openCtaPopup();
-                });
-            });
-    
-            if (closeBtn) closeBtn.addEventListener('click', closeCtaPopup);
-            if (bgOverlay) bgOverlay.addEventListener('click', closeCtaPopup);
-        }
-    });
-
-    // --- FEATURE: Disable right-click and long-press ---
-    // This listener prevents the context menu from appearing on right-click.
-    item.addEventListener('contextmenu', function(e) {
-      e.preventDefault();
-    });
-  });
-});
