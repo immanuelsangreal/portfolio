@@ -150,15 +150,15 @@ document.addEventListener('DOMContentLoaded', function() {
   let currentVideoItem = null;
 
   document.querySelectorAll('.portfolio-item').forEach(item => {
+    // --- FEATURE: Click to play or pause ---
     item.addEventListener('click', function() {
-
-      // Logic to pause the video if you click on it while it's playing
+      // If the clicked item is the one already playing, we close it.
       if (currentVideoItem === this) {
         const videoContainer = this.querySelector('.video-container');
         const thumbnail = this.querySelector('.thumbnail');
         
         if (videoContainer) {
-          videoContainer.innerHTML = ''; // Stop video by removing iframe
+          videoContainer.innerHTML = '';
           videoContainer.style.display = 'none';
         }
         if (thumbnail) {
@@ -169,8 +169,8 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
 
-      // Closes the old video when you click a new one
-      if (currentVideoItem && currentVideoItem !== this) {
+      // Closes the previously playing video when a new one is clicked
+      if (currentVideoItem) {
         const oldContainer = currentVideoItem.querySelector('.video-container');
         const oldThumbnail = currentVideoItem.querySelector('.thumbnail');
         
@@ -185,8 +185,6 @@ document.addEventListener('DOMContentLoaded', function() {
       
       const thumbnail = this.querySelector('.thumbnail');
       const videoContainer = this.querySelector('.video-container');
-      
-      // The final URL for a clean, looping player with sound
       const videoUrl = this.getAttribute('data-video') + '?autoplay=1&loop=1&controls=0&title=0&byline=0&portrait=0';
       
       const iframe = document.createElement('iframe');
@@ -195,13 +193,29 @@ document.addEventListener('DOMContentLoaded', function() {
       iframe.setAttribute('allowfullscreen', '');
       iframe.setAttribute('allow', 'autoplay; picture-in-picture');
 
+      // --- NEW: Add a transparent overlay to capture clicks on the video itself ---
+      const clickOverlay = document.createElement('div');
+      clickOverlay.style.position = 'absolute';
+      clickOverlay.style.top = '0';
+      clickOverlay.style.left = '0';
+      clickOverlay.style.width = '100%';
+      clickOverlay.style.height = '100%';
+      clickOverlay.style.zIndex = '1'; // Ensures it's on top of the iframe
+
+      // Add both the iframe and the overlay to the container
       videoContainer.innerHTML = '';
       videoContainer.appendChild(iframe);
+      videoContainer.appendChild(clickOverlay); // The overlay sits on top
       videoContainer.style.display = 'block';
 
       thumbnail.style.display = 'none';
-
       currentVideoItem = this;
+    });
+
+    // --- FEATURE: Disable right-click and long-press ---
+    // This listener prevents the context menu from appearing on right-click.
+    item.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
     });
   });
 });
