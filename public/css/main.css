@@ -4568,7 +4568,6 @@ Location:
   transition: opacity 0.15s linear, z-index 0.15;
   z-index: -1;
   overflow-y: hidden;
-  pointer-events: none; /* <-- ADD THIS LINE */
 }
 @media (max-width: 767px) {
   .custom-model-main {
@@ -4591,14 +4590,14 @@ Location:
   }
 }
 .custom-model-main .bg-overlay {
-  height: 100%;
+  background: var(--ztc-bg-bg-1);
+  height: 100vh;
   width: 100%;
   position: fixed;
   left: 0;
   top: 0;
-  background-color: rgba(255, 255, 255, 0.1);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
+  right: 0;
+  bottom: 0;
   z-index: 0;
 }
 .custom-model-main .custom-model-inner {
@@ -4711,13 +4710,12 @@ Location:
 }
 .custom-model-main .custom-model-inner .close-btn {
   position: absolute;
-  right: 25px;
-  top: 20px;
+  right: 5px;
+  top: -15px;
   cursor: pointer;
-  z-index: 100000;
+  z-index: 99;
   font-size: 40px;
   color: var(--ztc-text-text-1);
-  line-height: 1;
 }
 .custom-model-main .contact-from-area {
   background: var(--ztc-bg-bg25);
@@ -4788,7 +4786,7 @@ Location:
   background: var(--ztc-bg-bg2);
   padding: 16px;
   height: 48px;
-  color: var(--ztc-text-text-1); /* <-- ADD THIS LINE */
+  color: var(--ztc-text-text-1);
   font-family: var(--ztc-family-font1);
   font-size: var(--ztc-font-size-font-s16);
 }
@@ -4869,15 +4867,9 @@ Location:
   transition: all 0.4s;
 }
 
-body.model-open {
-  overflow: hidden;
-}
-
-/* This new rule correctly targets the popup when the body has the 'model-open' class */
-body.model-open .custom-model-main {
+.model-open {
   z-index: 99999;
   opacity: 1;
-  pointer-events: auto; /* This makes the popup clickable again when it's visible */
 }
 
 .model-open .custom-model-inner {
