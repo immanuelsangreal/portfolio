@@ -4568,6 +4568,7 @@ Location:
   transition: opacity 0.15s linear, z-index 0.15;
   z-index: -1;
   overflow-y: hidden;
+  pointer-events: none; /* <-- ADD THIS LINE */
 }
 @media (max-width: 767px) {
   .custom-model-main {
@@ -4867,9 +4868,11 @@ Location:
   transition: all 0.4s;
 }
 
-.model-open {
+/* This new rule correctly targets the popup when the body has the 'model-open' class */
+body.model-open .custom-model-main {
   z-index: 99999;
   opacity: 1;
+  pointer-events: auto; /* This makes the popup clickable again when it's visible */
 }
 
 .model-open .custom-model-inner {
