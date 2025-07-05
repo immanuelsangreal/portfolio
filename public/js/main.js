@@ -1,4 +1,4 @@
-(function ($) {
+; (function ($) {
 
     $(document).ready(function () {
 
@@ -21,56 +21,52 @@
 
         //========== PAGE PROGRESS STARTS ============= // 
         var progressPath = document.querySelector(".progress-wrap path");
-        if (progressPath) {
-            var pathLength = progressPath.getTotalLength();
-            progressPath.style.transition = progressPath.style.WebkitTransition =
-                "none";
-            progressPath.style.strokeDasharray = pathLength + " " + pathLength;
-            progressPath.style.strokeDashoffset = pathLength;
-            progressPath.getBoundingClientRect();
-            progressPath.style.transition = progressPath.style.WebkitTransition =
-                "stroke-dashoffset 10ms linear";
-            var updateProgress = function () {
-                var scroll = $(window).scrollTop();
-                var height = $(document).height() - $(window).height();
-                var progress = pathLength - (scroll * pathLength) / height;
-                progressPath.style.strokeDashoffset = progress;
-            };
-            updateProgress();
-            $(window).scroll(updateProgress);
-            var offset = 50;
-            var duration = 550;
-            jQuery(window).on("scroll", function () {
-                if (jQuery(this).scrollTop() > offset) {
-                    jQuery(".progress-wrap").addClass("active-progress");
-                } else {
-                    jQuery(".progress-wrap").removeClass("active-progress");
-                }
-            });
-            jQuery(".progress-wrap").on("click", function (event) {
-                event.preventDefault();
-                jQuery("html, body").animate({ scrollTop: 0 }, duration);
-                return false;
-            });
-        }
+        var pathLength = progressPath.getTotalLength();
+        progressPath.style.transition = progressPath.style.WebkitTransition =
+            "none";
+        progressPath.style.strokeDasharray = pathLength + " " + pathLength;
+        progressPath.style.strokeDashoffset = pathLength;
+        progressPath.getBoundingClientRect();
+        progressPath.style.transition = progressPath.style.WebkitTransition =
+            "stroke-dashoffset 10ms linear";
+        var updateProgress = function () {
+            var scroll = $(window).scrollTop();
+            var height = $(document).height() - $(window).height();
+            var progress = pathLength - (scroll * pathLength) / height;
+            progressPath.style.strokeDashoffset = progress;
+        };
+        updateProgress();
+        $(window).scroll(updateProgress);
+        var offset = 50;
+        var duration = 550;
+        jQuery(window).on("scroll", function () {
+            if (jQuery(this).scrollTop() > offset) {
+                jQuery(".progress-wrap").addClass("active-progress");
+            } else {
+                jQuery(".progress-wrap").removeClass("active-progress");
+            }
+        });
+        jQuery(".progress-wrap").on("click", function (event) {
+            event.preventDefault();
+            jQuery("html, body").animate({ scrollTop: 0 }, duration);
+            return false;
+        });
         //========== PAGE PROGRESS STARTS ============= // 
 
-        //========== VIDEO POPUP (OLD) ============= //
-        // This is the generic theme popup - we will not use it for our custom popups.
+        //========== VIDEO POPUP STARTS ============= //
         if ($(".popup-youtube").length > 0) {
             $(".popup-youtube").magnificPopup({
                 type: "iframe",
             });
         }
         //========== VIDEO POPUP ENDS ============= //
-        
+        AOS.init;
         AOS.init({ disable: 'mobile' });
 
         //========== NICE SELECT ============= //
         $('select').niceSelect();
 
     });
-    
     //========== COUNTER UP============= //
     const ucounter = $('.counter');
     if (ucounter.length > 0) {
@@ -85,6 +81,14 @@
 
     });
 
+    //========== POPUP AREA ============= //
+    $(".click-here").on('click', function () {
+        $(".custom-model-main").addClass('model-open');
+    });
+    $(".close-btn, .bg-overlay").click(function () {
+        $(".custom-model-main").removeClass('model-open');
+    });
+
 })(jQuery);
 
 //========== GSAP AREA ============= //
@@ -92,139 +96,126 @@ if ($('.reveal').length) { gsap.registerPlugin(ScrollTrigger); let revealContain
 
 // Theme toggle functionality
 const toggleButton = document.getElementById('theme-toggle');
-if(toggleButton){
-    if (localStorage.getItem('theme') === 'dark') {
-        document.body.classList.add('light-mode');
-        toggleButton.checked = true;
-    }
-    toggleButton.addEventListener('change', () => {
-        document.body.classList.toggle('light-mode');
-
-        if (document.body.classList.contains('light-mode')) {
-            localStorage.setItem('theme', 'light');
-        } else {
-            localStorage.setItem('theme', 'dark-mode');
-        }
-    });
+if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.add('light-mode');
+    toggleButton.checked = true;
 }
+toggleButton.addEventListener('change', () => {
+    document.body.classList.toggle('light-mode');
 
+    if (document.body.classList.contains('light-mode')) {
+        localStorage.setItem('theme', 'light');
+    } else {
+        localStorage.setItem('theme', 'dark-mode');
+    }
+});
 
-// Custom Cursor
+// UPDATE: I was able to get this working again... Enjoy!
 var cursor = document.querySelector('.procus-cursor');
 var cursorinner = document.querySelector('.procus-cursor2');
 var a = document.querySelectorAll('a');
-if(cursor){
-    document.addEventListener('mousemove', function (e) {
-        var x = e.clientX;
-        var y = e.clientY;
-        cursor.style.transform = `translate3d(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%), 0)`
+
+document.addEventListener('mousemove', function (e) {
+    var x = e.clientX;
+    var y = e.clientY;
+    cursor.style.transform = `translate3d(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%), 0)`
+});
+
+document.addEventListener('mousemove', function (e) {
+    var x = e.clientX;
+    var y = e.clientY;
+    cursorinner.style.left = x + 'px';
+    cursorinner.style.top = y + 'px';
+});
+
+document.addEventListener('mousedown', function () {
+    cursor.classList.add('click');
+    cursorinner.classList.add('cursorinnerhover')
+});
+
+document.addEventListener('mouseup', function () {
+    cursor.classList.remove('click')
+    cursorinner.classList.remove('cursorinnerhover')
+});
+
+a.forEach(item => {
+    item.addEventListener('mouseover', () => {
+        cursor.classList.add('hover');
     });
-    document.addEventListener('mousemove', function (e) {
-        var x = e.clientX;
-        var y = e.clientY;
-        cursorinner.style.left = x + 'px';
-        cursorinner.style.top = y + 'px';
+    item.addEventListener('mouseleave', () => {
+        cursor.classList.remove('hover');
     });
-    document.addEventListener('mousedown', function () {
-        cursor.classList.add('click');
-        cursorinner.classList.add('cursorinnerhover')
+})
+document.addEventListener('DOMContentLoaded', function() {
+  let currentVideoItem = null;
+
+  document.querySelectorAll('.portfolio-item').forEach(item => {
+    // --- FEATURE: Click to play or pause ---
+    item.addEventListener('click', function() {
+      // If the clicked item is the one already playing, we close it.
+      if (currentVideoItem === this) {
+        const videoContainer = this.querySelector('.video-container');
+        const thumbnail = this.querySelector('.thumbnail');
+        
+        if (videoContainer) {
+          videoContainer.innerHTML = '';
+          videoContainer.style.display = 'none';
+        }
+        if (thumbnail) {
+          thumbnail.style.display = 'block';
+        }
+        
+        currentVideoItem = null;
+        return;
+      }
+
+      // Closes the previously playing video when a new one is clicked
+      if (currentVideoItem) {
+        const oldContainer = currentVideoItem.querySelector('.video-container');
+        const oldThumbnail = currentVideoItem.querySelector('.thumbnail');
+        
+        if (oldContainer) {
+          oldContainer.innerHTML = '';
+          oldContainer.style.display = 'none';
+        }
+        if (oldThumbnail) {
+          oldThumbnail.style.display = 'block';
+        }
+      }
+      
+      const thumbnail = this.querySelector('.thumbnail');
+      const videoContainer = this.querySelector('.video-container');
+      const videoUrl = this.getAttribute('data-video') + '?autoplay=1&loop=1&controls=0&title=0&byline=0&portrait=0';
+      
+      const iframe = document.createElement('iframe');
+      iframe.setAttribute('src', videoUrl);
+      iframe.setAttribute('frameborder', '0');
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('allow', 'autoplay; picture-in-picture');
+
+      // --- NEW: Add a transparent overlay to capture clicks on the video itself ---
+      const clickOverlay = document.createElement('div');
+      clickOverlay.style.position = 'absolute';
+      clickOverlay.style.top = '0';
+      clickOverlay.style.left = '0';
+      clickOverlay.style.width = '100%';
+      clickOverlay.style.height = '100%';
+      clickOverlay.style.zIndex = '1'; // Ensures it's on top of the iframe
+
+      // Add both the iframe and the overlay to the container
+      videoContainer.innerHTML = '';
+      videoContainer.appendChild(iframe);
+      videoContainer.appendChild(clickOverlay); // The overlay sits on top
+      videoContainer.style.display = 'block';
+
+      thumbnail.style.display = 'none';
+      currentVideoItem = this;
     });
-    document.addEventListener('mouseup', function () {
-        cursor.classList.remove('click')
-        cursorinner.classList.remove('cursorinnerhover')
+
+    // --- FEATURE: Disable right-click and long-press ---
+    // This listener prevents the context menu from appearing on right-click.
+    item.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
     });
-    a.forEach(item => {
-        item.addEventListener('mouseover', () => {
-            cursor.classList.add('hover');
-        });
-        item.addEventListener('mouseleave', () => {
-            cursor.classList.remove('hover');
-        });
-    })
-}
-
-
-// =======================================================================================
-//  SANGREAL PORTFOLIO - CTO's UNIFIED POPUP & INLINE-PLAYER SCRIPT
-// =======================================================================================
-document.addEventListener("DOMContentLoaded", function() {
-
-    // --- Portfolio Inline Video Player ---
-    let currentVideoItem = null;
-    document.querySelectorAll('.portfolio-item').forEach(item => {
-        item.addEventListener('click', function(e) {
-            e.preventDefault();
-
-            if (currentVideoItem === this && this.querySelector('iframe')) {
-                return; // Do nothing if we click the already playing video's container
-            }
-
-            // If another video is playing, close it first.
-            if (currentVideoItem) {
-                const oldIframe = currentVideoItem.querySelector('iframe');
-                if (oldIframe) oldIframe.remove();
-                currentVideoItem.querySelector('.thumbnail').style.display = 'block';
-                const oldTitle = currentVideoItem.querySelector('.video-title');
-                if(oldTitle) oldTitle.style.display = 'block';
-            }
-            
-            const thumbnail = this.querySelector('.thumbnail');
-            const title = this.querySelector('.video-title');
-            
-            const videoUrl = this.getAttribute('data-video') + '?autoplay=1&title=0&byline=0&portrait=0';
-            const iframe = document.createElement('iframe');
-            iframe.setAttribute('src', videoUrl);
-            iframe.setAttribute('frameborder', '0');
-            iframe.setAttribute('allowfullscreen', '');
-            iframe.setAttribute('allow', 'autoplay; picture-in-picture');
-
-            // Set the correct height based on the parent class
-            iframe.style.height = this.classList.contains('vertical') ? '500px' : '280px';
-            iframe.style.width = '100%';
-
-            thumbnail.style.display = 'none';
-            if(title) title.style.display = 'none';
-            this.appendChild(iframe);
-
-            currentVideoItem = this;
-        });
-    });
-
-    // --- CTA "Book Me" Popup ---
-    const ctaPopup = document.querySelector('#cta-popup');
-    if(ctaPopup) {
-        const body = document.body;
-        const closeBtn = ctaPopup.querySelector('.cta-close-btn');
-        const bgOverlay = ctaPopup.querySelector('.bg-overlay');
-
-        const openCtaPopup = () => {
-            body.classList.add('model-open');
-            ctaPopup.style.display = 'block';
-            const iframe = ctaPopup.querySelector('iframe');
-            if (iframe) {
-                const originalSrc = iframe.getAttribute('src').split('?')[0];
-                iframe.setAttribute('src', `${originalSrc}?autoplay=1&loop=1&autopause=0&muted=1&background=1`);
-            }
-        };
-
-        const closeCtaPopup = () => {
-            body.classList.remove('model-open');
-            const iframe = ctaPopup.querySelector('iframe');
-            if (iframe) {
-                const originalSrc = iframe.getAttribute('src').split('?')[0];
-                iframe.setAttribute('src', `${originalSrc}?autoplay=0&loop=1&autopause=0&muted=1&background=1`);
-            }
-            ctaPopup.style.display = 'none';
-        };
-
-        document.querySelectorAll('.cta-popup-trigger').forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                openCtaPopup();
-            });
-        });
-
-        if(closeBtn) closeBtn.addEventListener('click', closeCtaPopup);
-        if(bgOverlay) bgOverlay.addEventListener('click', closeCtaPopup);
-    }
+  });
 });
