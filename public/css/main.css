@@ -4711,12 +4711,13 @@ Location:
 }
 .custom-model-main .custom-model-inner .close-btn {
   position: absolute;
-  right: 5px;
-  top: -15px;
+  right: 25px;
+  top: 20px;
   cursor: pointer;
-  z-index: 99;
+  z-index: 100000;
   font-size: 40px;
   color: var(--ztc-text-text-1);
+  line-height: 1;
 }
 .custom-model-main .contact-from-area {
   background: var(--ztc-bg-bg25);
