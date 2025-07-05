@@ -4788,7 +4788,7 @@ Location:
   background: var(--ztc-bg-bg2);
   padding: 16px;
   height: 48px;
-  color: var(--ztc-text-text-1);
+  color: var(--ztc-text-text-1); /* <-- ADD THIS LINE */
   font-family: var(--ztc-family-font1);
   font-size: var(--ztc-font-size-font-s16);
 }
