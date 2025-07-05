@@ -218,4 +218,42 @@ document.addEventListener('DOMContentLoaded', function() {
       e.preventDefault();
     });
   });
+    // --- NEW FEATURE: Logic for CTA "Book Me" Popup ---
+        const ctaPopup = document.querySelector('#cta-popup');
+        if (ctaPopup) {
+            const body = document.body;
+            const closeBtn = ctaPopup.querySelector('.cta-close-btn');
+            const bgOverlay = ctaPopup.querySelector('.bg-overlay');
+    
+            const openCtaPopup = () => {
+                body.classList.add('model-open');
+                ctaPopup.style.display = 'block';
+                const iframe = ctaPopup.querySelector('iframe');
+                if (iframe) {
+                    // Start the video when the popup opens
+                    const originalSrc = iframe.getAttribute('src').split('?')[0];
+                    iframe.setAttribute('src', `${originalSrc}?autoplay=1&loop=1&autopause=0&muted=1&background=1`);
+                }
+            };
+    
+            const closeCtaPopup = () => {
+                body.classList.remove('model-open');
+                const iframe = ctaPopup.querySelector('iframe');
+                if (iframe) {
+                    // Stop the video when the popup closes
+                    iframe.setAttribute('src', iframe.getAttribute('src').replace("autoplay=1", "autoplay=0"));
+                }
+                ctaPopup.style.display = 'none';
+            };
+    
+            document.querySelectorAll('.cta-popup-trigger').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openCtaPopup();
+                });
+            });
+    
+            if (closeBtn) closeBtn.addEventListener('click', closeCtaPopup);
+            if (bgOverlay) bgOverlay.addEventListener('click', closeCtaPopup);
+        }
 });
