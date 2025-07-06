@@ -23,3 +23,17 @@
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
+.DS_Store
+src/.DS_Store
+assets/.DS_Store
+config/.DS_Store
+public/.DS_Store
+templates/.DS_Store
+public/js/.DS_Store
+public/css/.DS_Store
+public/img/.DS_Store
+public/scss/.DS_Store
+public/scss/layout/.DS_Store
+public/img/elements/.DS_Store
+public/img/all-images/.DS_Store
+public/img/all-images/hero/.DS_Store
