@@ -69,10 +69,12 @@
         $(".popup-trigger").on('click', function (e) {
             e.preventDefault(); // Prevents the link from trying to navigate
             $(".custom-model-main").addClass('model-open');
+            $("#header").addClass('header-behind'); // Lowers the header's z-index
         });
-
+        
         $(".close-btn, .bg-overlay").click(function () {
             $(".custom-model-main").removeClass('model-open');
+            $("#header").removeClass('header-behind'); // Restores the header's z-index
         });
 
         //========== OLD POPUP AREA (for .click-here) ============= //
