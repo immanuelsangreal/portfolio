@@ -5521,6 +5521,6 @@ CTO Custom Fix for Portfolio Titles
   width: 100%;
   margin-top: 10px;
 
-.custom-model-main .nice-select .list {
+.custom-model-main .nice-select .open {
     z-index: 10 !important;
 }
