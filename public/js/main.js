@@ -39,8 +39,10 @@
             jQuery(window).on("scroll", function () {
                 if (jQuery(this).scrollTop() > offset) {
                     jQuery(".progress-wrap").addClass("active-progress");
+                    jQuery("#header").addClass("sticky"); // ADD THIS LINE
                 } else {
                     jQuery(".progress-wrap").removeClass("active-progress");
+                    jQuery("#header").removeClass("sticky"); // AND THIS LINE
                 }
             });
             jQuery(".progress-wrap").on("click", function (event) {
