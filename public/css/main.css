@@ -5514,39 +5514,27 @@ CTO Custom Fix for Portfolio Titles
   transition: all 0.4s;
 }
 /* =============================================
-   FINAL POPUP FIXES
+   Final & Consolidated Popup Fixes
    ============================================= */
 
-/* Fix for Overlay, Clicks, and Stacking Issues.
-   This sets an extremely high z-index ONLY when the popup is open.
+/* Fix #1: Z-Index Stacking for Header & Popup
+   This uses "!important" to guarantee these rules override all others.
+   The high z-index is applied ONLY when the '.model-open' class is active,
+   preventing it from blocking clicks when the popup is hidden.
 */
 .custom-model-main.model-open {
-  z-index: 999999;
+  z-index: 99999 !important;
 }
 
-/* Fix for the Submit Button Alignment */
-.custom-model-main .contact-from-area .btn-area {
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-  margin-top: 10px;
-}
-/* =============================================
-   Final Fixes for Popup Stacking & Dropdown
-   ============================================= */
-
-/* Fix for Header Overlaying Popup
-   This rule ONLY applies when the header has the 'header-behind' class,
-   forcing it below the popup overlay.
-*/
-.header.header-behind {
-  z-index: 99;
+.header-sticky {
+    z-index: 9999 !important; /* This keeps the nav bar high, but lower than the popup */
 }
 
-/* Fix for Dropdown Appearing Under Submit Button
-   This gives the dropdown list itself a high z-index, ensuring it
-   appears on top of all other elements within the popup form.
+
+/* Fix #2: Dropdown Overlay
+   This gives the dropdown list a higher z-index than any other element
+   inside the popup, ensuring it always opens on top.
 */
 .custom-model-main .nice-select .list {
-    z-index: 100;
+    z-index: 1000 !important;
 }
