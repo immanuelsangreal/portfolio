@@ -5514,27 +5514,36 @@ CTO Custom Fix for Portfolio Titles
   transition: all 0.4s;
 }
 /* =============================================
-   Final & Consolidated Popup Fixes
+   FINAL & CONSOLIDATED STACKING FIX
    ============================================= */
 
-/* Fix #1: Z-Index Stacking for Header & Popup
-   This uses "!important" to guarantee these rules override all others.
-   The high z-index is applied ONLY when the '.model-open' class is active,
-   preventing it from blocking clicks when the popup is hidden.
+/* Rule #1: The Sticky Header
+   We are giving the sticky header a z-index of 1000. This keeps it on top of page content.
+*/
+.header-sticky {
+  z-index: 1000 !important;
+}
+
+/* Rule #2: The Sidebar
+   When the sidebar is open, it needs to be on top of the sticky header.
+   We give it a higher z-index of 1020.
+*/
+.slide-bar.show {
+  z-index: 1020 !important;
+}
+
+/* Rule #3: The Popup
+   When the popup is open, it must be on top of everything, including the header and sidebar.
+   We give it the highest z-index. This only applies when the popup has the 'model-open' class,
+   so it won't block clicks when it's hidden.
 */
 .custom-model-main.model-open {
-  z-index: 99999 !important;
+  z-index: 1030 !important;
 }
 
-.header-sticky {
-    z-index: 9999 !important; /* This keeps the nav bar high, but lower than the popup */
-}
-
-
-/* Fix #2: Dropdown Overlay
-   This gives the dropdown list a higher z-index than any other element
-   inside the popup, ensuring it always opens on top.
+/* Fix #4: The Dropdown Menu
+   This ensures the dropdown list inside the popup opens on top of all other form elements.
 */
 .custom-model-main .nice-select .list {
-    z-index: 1000 !important;
+    z-index: 10 !important;
 }
