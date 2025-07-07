@@ -5531,3 +5531,22 @@ CTO Custom Fix for Portfolio Titles
   width: 100%;
   margin-top: 10px;
 }
+/* =============================================
+   Final Fixes for Popup Stacking & Dropdown
+   ============================================= */
+
+/* Fix for Header Overlaying Popup
+   This rule ONLY applies when the header has the 'header-behind' class,
+   forcing it below the popup overlay.
+*/
+.header.header-behind {
+  z-index: 99;
+}
+
+/* Fix for Dropdown Appearing Under Submit Button
+   This gives the dropdown list itself a high z-index, ensuring it
+   appears on top of all other elements within the popup form.
+*/
+.custom-model-main .nice-select .list {
+    z-index: 100;
+}
