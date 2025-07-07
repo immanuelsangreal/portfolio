@@ -5515,23 +5515,30 @@ CTO Custom Fix for Portfolio Titles
 }
 
 /* =============================================
-   FINAL & CORRECTED STACKING FIX
+   FINAL, CONSOLIDATED STACKING FIX
    ============================================= */
 
-/* This rule forces the sticky header to a lower layer than the popup and sidebar,
-   but ONLY when it's in its sticky state. */
+/* Rule #1: Control the Sticky Header
+   This rule targets the header ONLY when it has become sticky after scrolling.
+   We are forcing its z-index to be lower than the popup and the sidebar.
+*/
 .header-area.header-sticky.sticky {
-  z-index: 99 !important;
+  z-index: 999 !important;
 }
 
-/* This ensures the popup is always on top when it is open. */
+/* Rule #2: Control the Popup
+   This ensures the popup is always on top when it is open. The '.model-open'
+   class, added by your JS, is the key to making this work without blocking clicks.
+*/
 .custom-model-main.model-open {
-    z-index: 99999 !important;
+    z-index: 9999 !important;
 }
 
-/* This fixes the dropdown overlay issue within the popup. */
-.custom-model-main .nice-select.open .list {
-  z-index: 10 !important;
+/* Rule #3: Fix the Dropdown Overlay Issue
+   This gives the dropdown list a higher z-index than the other form elements.
+*/
+.custom-model-main .nice-select .list {
+    z-index: 100 !important;
 }
 
 /* Rule #4: Fix the Submit Button Position
