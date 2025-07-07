@@ -5514,13 +5514,39 @@ CTO Custom Fix for Portfolio Titles
   transition: all 0.4s;
 }
 
-/* Fix for the Submit Button Alignment */
-.custom-model-main .contact-from-area .btn-area {
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-  margin-top: 10px;
+/* =============================================
+   FINAL CONSOLIDATED STACKING & UI FIX
+   ============================================= */
 
-.custom-model-main .nice-select .open {
-    z-index: 10 !important;
+/* Rule #1: Make the default header and the popup play nice.
+/* This rule only works when the popup has the 'model-open' class */
+.custom-model-main.model-open {
+  z-index: 99999 !important;
+}
+
+
+/* Rule #2: Force the STICKY header behind the sidebar and popup.
+   The .sticky class is added by JavaScript when you scroll. This rule targets it specifically.
+   The sidebar (.slide-bar) has a z-index of 1020 from the original file, so this works.
+*/
+.header-area.header-sticky.sticky {
+  z-index: 999 !important;
+}
+
+
+/* Rule #3: Fix the Dropdown Overlaying Other Fields
+   The dropdown list gets a z-index to appear on top of other elements inside the form.
+*/
+.custom-model-main .nice-select .list {
+  z-index: 10 !important;
+}
+
+
+/* Rule #4: Fix the Submit Button Position
+   This gives the button proper spacing from the field above it.
+*/
+.custom-model-main .contact-from-area .btn-area {
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
 }
