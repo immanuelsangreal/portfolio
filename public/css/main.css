@@ -5513,34 +5513,6 @@ CTO Custom Fix for Portfolio Titles
   color: var(--ztc-bg-btn-bg1);
   transition: all 0.4s;
 }
-/* =============================================
-   FINAL & CONSOLIDATED STACKING FIX
-   ============================================= */
-
-/* Rule #1: The Sticky Header
-   We are giving the sticky header a z-index of 1000. This keeps it on top of page content.
-*/
-.header-sticky {
-  z-index: 1000 !important;
-}
-
-/* Rule #2: The Sidebar
-   When the sidebar is open, it needs to be on top of the sticky header.
-   We give it a higher z-index of 1020.
-*/
-.slide-bar.show {
-  z-index: 1020 !important;
-}
-
-/* Rule #3: The Popup
-   When the popup is open, it must be on top of everything, including the header and sidebar.
-   We give it the highest z-index. This only applies when the popup has the 'model-open' class,
-   so it won't block clicks when it's hidden.
-*/
-.custom-model-main.model-open {
-  z-index: 1030 !important;
-}
-
 /* Fix #4: The Dropdown Menu
    This ensures the dropdown list inside the popup opens on top of all other form elements.
 */
