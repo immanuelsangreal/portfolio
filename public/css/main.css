@@ -5515,32 +5515,24 @@ CTO Custom Fix for Portfolio Titles
 }
 
 /* =============================================
-   FINAL CONSOLIDATED STACKING & UI FIX
+   FINAL & CORRECTED STACKING FIX
    ============================================= */
 
-/* Rule #1: Make the default header and the popup play nice.
-/* This rule only works when the popup has the 'model-open' class */
-.custom-model-main.model-open {
-  z-index: 99999 !important;
-}
-
-
-/* Rule #2: Force the STICKY header behind the sidebar and popup.
-   The .sticky class is added by JavaScript when you scroll. This rule targets it specifically.
-   The sidebar (.slide-bar) has a z-index of 1020 from the original file, so this works.
-*/
+/* This rule forces the sticky header to a lower layer than the popup and sidebar,
+   but ONLY when it's in its sticky state. */
 .header-area.header-sticky.sticky {
-  z-index: 999 !important;
+  z-index: 99 !important;
 }
 
+/* This ensures the popup is always on top when it is open. */
+.custom-model-main.model-open {
+    z-index: 99999 !important;
+}
 
-/* Rule #3: Fix the Dropdown Overlaying Other Fields
-   The dropdown list gets a z-index to appear on top of other elements inside the form.
-*/
-.custom-model-main .nice-select .list {
+/* This fixes the dropdown overlay issue within the popup. */
+.custom-model-main .nice-select.open .list {
   z-index: 10 !important;
 }
-
 
 /* Rule #4: Fix the Submit Button Position
    This gives the button proper spacing from the field above it.
