@@ -5513,18 +5513,21 @@ CTO Custom Fix for Portfolio Titles
   color: var(--ztc-bg-btn-bg1);
   transition: all 0.4s;
 }
-/*=============================
-CTO Custom Fixes for Popup & Button
-=============================*/
+/* =============================================
+   FINAL POPUP FIXES
+   ============================================= */
 
-/* Fix for main site UI appearing over the popup */
-.custom-model-main {
-    z-index: 9999;
+/* Fix for Overlay, Clicks, and Stacking Issues.
+   This sets an extremely high z-index ONLY when the popup is open.
+*/
+.custom-model-main.model-open {
+  z-index: 999999;
 }
 
-/* Fix for the Submit button alignment in the popup form */
+/* Fix for the Submit Button Alignment */
 .custom-model-main .contact-from-area .btn-area {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 10px;
 }
