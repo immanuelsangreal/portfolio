@@ -5513,15 +5513,13 @@ CTO Custom Fix for Portfolio Titles
   color: var(--ztc-bg-btn-bg1);
   transition: all 0.4s;
 }
-/* Fix #4: The Dropdown Menu
-   This ensures the dropdown list inside the popup opens on top of all other form elements.
-*/
-/* Fix for the Submit button alignment in the popup form */
+
+/* Fix for the Submit Button Alignment */
 .custom-model-main .contact-from-area .btn-area {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-}
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 10px;
 
 .custom-model-main .nice-select .list {
     z-index: 10 !important;
