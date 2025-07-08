@@ -645,29 +645,32 @@
                       <form action="https://api.web3forms.com/submit" method="POST" class="row">
                   
                           <input type="hidden" name="access_key" value="b9ee893e-85d9-4429-b437-ec4f2b0723f5">
+                          
+                          <input type="hidden" name="redirect" value="https://portfolio-subi.onrender.com/#list-item-5">
+                  
                   
                           <div class="col-lg-6 col-md-6">
                               <div class="input-area">
-                                  <input type="text" name="name" placeholder="Full Name *" required />
+                                  <input type="text" name="name" placeholder="Full Name" required />
+                              </div>
+                          </div>
+                  
+                          <div class="col-lg-6 col-md-6">
+                              <div class="input-area">
+                                  <input type="email" name="email" placeholder="Email Address" required />
                               </div>
                           </div>
                           
                           <div class="col-lg-6 col-md-6">
                               <div class="input-area">
-                                  <input type="email" name="email" placeholder="Email Address *" required />
+                                  <input type="tel" name="phone" placeholder="Phone Number" required />
                               </div>
                           </div>
-                  
-                          <div class="col-lg-6 col-md-6">
-                              <div class="input-area">
-                                  <input type="tel" name="phone" placeholder="Phone Number *" required />
-                              </div>
-                          </div>
-                  
+                          
                           <div class="col-lg-6 col-md-6">
                               <div class="input-area">
                                   <select class="nice-select" name="service" required>
-                                      <option data-display="How Can I Help? *">Select a Service</option>
+                                      <option data-display="How Can I Help?">Select a Service</option>
                                       <option value="Cinematic Color Grading">Cinematic Color Grading</option>
                                       <option value="Automotive Cinematics">Automotive Cinematics</option>
                                       <option value="Architectural & Real Estate Video">Architectural & Real Estate Video</option>
@@ -676,6 +679,12 @@
                                       <option value="VFX & Compositing">VFX & Compositing</option>
                                       <option value="Creative Direction & Consulting">Creative Direction & Consulting</option>
                                   </select>
+                              </div>
+                          </div>
+                  
+                          <div class="col-lg-12">
+                              <div class="input-area">
+                                  <input type="text" name="budget" placeholder="Your Budget (optional)" />
                               </div>
                           </div>
                   
@@ -690,7 +699,6 @@
                                   <button type="submit" class="vl-btn1">Send <img src="/img/icons/mail1.svg" alt="" /></button>
                               </div>
                           </div>
-                          
                       </form>
                     </div>
 
