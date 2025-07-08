@@ -641,48 +641,55 @@
                       <div class="contact-boxarea" data-aos="zoom-in" data-aos-duration="1000">
                         <h3>Let’s Work Together!</h3>
                         <div class="space12"></div>
-                        <div class="row">
-                          <div class="col-lg-6 col-md-6">
-                            <div class="input-area">
-                              <input type="text" placeholder="Full Name" />
-                            </div>
+                        <form action="#" id="main-contact-form">
+                      <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                          <div class="input-area">
+                            <input type="text" placeholder="Full Name *" required>
                           </div>
-                          <div class="col-lg-6 col-md-6">
-                            <div class="input-area">
-                              <input type="email" placeholder="Email Address" />
-                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                          <div class="input-area">
+                            <input type="email" placeholder="Email Address *" required>
                           </div>
-                          <div class="col-lg-6 col-md-6">
-                            <div class="input-area">
-                              <input type="number" placeholder="Phone Number" />
-                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                          <div class="input-area">
+                            <input type="tel" placeholder="Phone Number *" required>
                           </div>
-                          <div class="col-lg-6 col-md-6">
+                        </div>
+                        <div class="col-lg-6 col-md-6">
                             <div class="input-area">
-                              <input type="text" placeholder="Subject" />
+                                <select class="nice-select" name="service" required>
+                                    <option data-display="How Can I Help? *">How can I help?</option>
+                                    <option value="Automotive Cinematics">Automotive Cinematics</option>
+                                    <option value="Architectural & Real Estate Video">Architectural & Real Estate Video</option>
+                                    <option value="VFX & Compositing">VFX & Compositing</option>
+                                    <option value="Intro Title Sequences & Motion Graphics">Intro Title Sequences & Motion Graphics</option>
+                                    <option value="3D Product Visualisation">3D Product Visualisation</option>
+                                    <option value="High-Impact Social Media Promos">High-Impact Social Media Promos</option>
+                                    <option value="Cinematic Color Grading">Cinematic Color Grading</option>
+                                    <option value="Creative & Technical Consultation">Creative & Technical Consultation</option>
+                                </select>
                             </div>
+                        </div>
+                        <div class="col-lg-12">
+                          <div class="input-area">
+                            <input type="text" placeholder="Your Budget (optional)" />
                           </div>
-
-                          <div class="col-lg-12">
-                            <div class="input-area">
-                              <input type="text" placeholder="Your Budget (optional)" />
-                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                          <div class="input-area">
+                            <textarea name="message" placeholder="Tell me a bit about your project..."></textarea>
                           </div>
-
-                          <div class="col-lg-12">
-                            <div class="input-area">
-                              <textarea placeholder="Message"></textarea>
-                            </div>
-                          </div>
-
-                          <div class="col-lg-12">
-                            <div class="input-area">
-                              <button type="submit" class="vl-btn1">Send <img src="/img/icons/mail1.svg" alt="" /></button>
-                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                          <div class="btn-area">
+                            <button type="submit" class="vl-btn1">Send Message</button>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </form>
 
                     <div class="col-lg-12">
                       <div class="space50"></div>
