@@ -5550,46 +5550,17 @@ CTO Custom Fix for Portfolio Titles
     display: flex;
     justify-content: flex-end;
 }
+
 /* =============================================
-   Custom Style for Footer Dropdown (Theme-Aware)
+   Footer Dropdown Dimension Fix
    ============================================= */
 
-/* This styles the main dropdown box to use your theme's variables */
-.nice-select-footer {
-  background-color: var(--ztc-bg-bg1);
-  border: 1px solid var(--ztc-border-c2) !important;
-  color: var(--ztc-p);
+/* This rule targets the dropdown ONLY in the footer's contact area
+   and makes its height and border-radius match the other input fields.
+*/
+.contact-boxarea .nice-select {
   height: 60px;
   line-height: 60px;
-  padding: 0 20px;
   border-radius: 10px;
-}
-
-/* This styles the arrow on the right */
-.nice-select-footer::after {
-  border-color: var(--ztc-p);
-}
-
-/* This styles the dropdown list when it opens */
-.nice-select-footer .list {
-  background-color: var(--ztc-bg-bg2);
-  border-radius: 5px;
-}
-
-/* This styles the individual options in the list */
-.nice-select-footer .option {
-  color: var(--ztc-p);
-}
-
-/* This styles the options on hover or when selected */
-.nice-select-footer .option:hover,
-.nice-select-footer .option.focus,
-.nice-select-footer .option.selected {
-  background-color: var(--ztc-primary);
-  color: var(--ztc-black) !important;
-}
-
-/* This ensures the list opens on top of other elements */
-.nice-select-footer.open .list {
-    z-index: 100 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
