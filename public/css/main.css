@@ -5551,37 +5551,42 @@ CTO Custom Fix for Portfolio Titles
     justify-content: flex-end;
 }
 /* =============================================
-   Custom Style for Footer Dropdown
+   Custom Style for Footer Dropdown (Theme-Aware)
    ============================================= */
 
-/* This styles the main dropdown box to match the other inputs */
+/* This styles the main dropdown box to use your theme's variables */
 .nice-select-footer {
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: var(--ztc-bg-bg1);
+  border: 1px solid var(--ztc-border-c2) !important;
   color: var(--ztc-p);
+  height: 60px;
+  line-height: 60px;
+  padding: 0 20px;
+  border-radius: 10px;
 }
 
 /* This styles the arrow on the right */
 .nice-select-footer::after {
-  border-color: rgba(255, 255, 255, 0.5);
+  border-color: var(--ztc-p);
 }
 
 /* This styles the dropdown list when it opens */
 .nice-select-footer .list {
-  background-color: #1a1a1a; /* A dark background for the list */
+  background-color: var(--ztc-bg-bg2);
   border-radius: 5px;
 }
 
 /* This styles the individual options in the list */
 .nice-select-footer .option {
   color: var(--ztc-p);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* This styles the options on hover */
-.nice-select-footer .option:hover {
+/* This styles the options on hover or when selected */
+.nice-select-footer .option:hover,
+.nice-select-footer .option.focus,
+.nice-select-footer .option.selected {
   background-color: var(--ztc-primary);
-  color: var(--ztc-black);
+  color: var(--ztc-black) !important;
 }
 
 /* This ensures the list opens on top of other elements */
