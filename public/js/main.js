@@ -65,11 +65,6 @@
             $('select.nice-select').niceSelect();
         }
 
-        //========== NICE SELECT (FOR THE FOOTER FORM) ============= //
-        if ($('.nice-select-footer').length) {
-            $('select.nice-select-footer').niceSelect();
-        }
-
         //========== NEW POPUP AREA (HIRE ME & LETS CREATE) ============= //
         $(".popup-trigger").on('click', function (e) {
             e.preventDefault(); // Prevents the link from trying to navigate
