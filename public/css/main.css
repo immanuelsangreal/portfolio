@@ -5574,3 +5574,12 @@ CTO Custom Fix for Portfolio Titles
 .portfolio-header.heading1 h2 {
   white-space: nowrap;
 }
+/* Rule to Fix Sidebar Icon Alignment (Vertical to Horizontal) */
+.sidebar-info .social-link-area ul li {
+  display: inline-block; /* Makes the list items sit side-by-side */
+  margin-right: 15px;    /* Adds space between them */
+}
+
+.sidebar-info .social-link-area ul li:last-child {
+  margin-right: 0; /* Removes margin from the last icon */
+}
