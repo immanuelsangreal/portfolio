@@ -5564,3 +5564,13 @@ CTO Custom Fix for Portfolio Titles
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
+/* =============================================
+   Heading Text Wrap Fix
+   ============================================= */
+
+/* This rule specifically targets the h2 headings inside the portfolio
+   header and reduces their font size just enough to prevent wrapping.
+*/
+.portfolio-header.heading1 h2 {
+  font-size: 68px;
+}
