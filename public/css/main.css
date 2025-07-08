@@ -5565,12 +5565,47 @@ CTO Custom Fix for Portfolio Titles
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 /* =============================================
-   Heading Text Wrap Fix
+   Heading Text Wrap Fix - Final Version
    ============================================= */
 
-/* This rule specifically targets the h2 headings inside the portfolio
-   header and reduces their font size just enough to prevent wrapping.
+/* This rule targets the h2 headings inside the portfolio header
+   and forces them to stay on a single line.
 */
 .portfolio-header.heading1 h2 {
-  font-size: 68px;
+  white-space: nowrap;
+}
+/* =============================================
+   Social Icon Styling Fixes
+   ============================================= */
+
+/* Rule #1: Fix Color & Size for ALL social icons
+   This targets the <i> tags in all three locations.
+*/
+.personal-contact-box ul li a i,
+.about-others-box ul li a i,
+.sidebar-info .social-link-area ul li a i {
+  color: var(--ztc-p); /* Uses your theme's color variable for black/white */
+  font-size: 18px;    /* Increases the icon size */
+  transition: all 0.3s ease-in-out;
+}
+
+/* Rule #2: Add a hover effect for all icons */
+.personal-contact-box ul li a:hover i,
+.about-others-box ul li a:hover i,
+.sidebar-info .social-link-area ul li a:hover i {
+  color: var(--ztc-primary); /* Uses your theme's primary color for hover */
+  transform: translateY(-3px);
+}
+
+
+/* Rule #3: Fix Sidebar Icon Alignment (Vertical to Horizontal)
+   This targets the list items ONLY in the sidebar.
+*/
+.sidebar-info .social-link-area ul li {
+  display: inline-block; /* Makes the list items sit side-by-side */
+  margin-right: 15px;    /* Adds space between the horizontal icons */
+}
+
+.sidebar-info .social-link-area ul li:last-child {
+  margin-right: 0; /* Removes margin from the last icon */
 }
