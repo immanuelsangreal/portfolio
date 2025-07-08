@@ -5564,16 +5564,20 @@ CTO Custom Fix for Portfolio Titles
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
+
 /* =============================================
-   Heading Text Wrap Fix - Final Version
+   Heading Alignment & Centering Fix
    ============================================= */
 
-/* This rule targets the h2 headings inside the portfolio header
-   and forces them to stay on a single line.
+/* This rule targets the container for the portfolio headings.
+   By making it a flex container, we can easily center the content.
 */
-.portfolio-header.heading1 h2 {
-  white-space: nowrap;
+.portfolio-header.heading1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
 /* Rule to Fix Sidebar Icon Alignment (Vertical to Horizontal) */
 .sidebar-info .social-link-area ul li {
   display: inline-block; /* Makes the list items sit side-by-side */
