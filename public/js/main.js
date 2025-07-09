@@ -235,3 +235,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+
+// =============================================
+// Security: Disable Right-Click
+// =============================================
+document.addEventListener('contextmenu', function(e) {
+  e.preventDefault();
+});
+
