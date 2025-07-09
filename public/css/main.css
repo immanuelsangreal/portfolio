@@ -5571,7 +5571,7 @@ CTO Custom Fix for Portfolio Titles
 
 /* This rule controls the size of the icons ONLY in the sidebar */
 .sidebar-info .social-link-area ul li a img {
-  width: 15px; /* Adjust this value as needed */
+  width: 20px; /* Adjust this value as needed */
   height: auto;
 }
 
@@ -5587,15 +5587,4 @@ CTO Custom Fix for Portfolio Titles
 }
 .sidebar-info .social-link-area ul li:last-child {
   margin-right: 0;
-}
-/* =============================================
-   Portfolio Heading Wrap & Alignment Fix
-   ============================================= */
-
-/* This rule targets the h2 headings and reduces the font size
-   just enough to prevent wrapping, which will restore the
-   default left-alignment.
-*/
-.portfolio-header.heading1 h2 {
-  font-size: 72px;
 }
