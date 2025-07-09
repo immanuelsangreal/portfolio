@@ -5588,3 +5588,12 @@ CTO Custom Fix for Portfolio Titles
 .sidebar-info .social-link-area ul li:last-child {
   margin-right: 0;
 }
+
+/* =============================================
+   Security: Content Protection
+   ============================================= */
+
+/* This makes it so users cannot easily drag or interact with your images and videos */
+img, video {
+  pointer-events: none;
+}
