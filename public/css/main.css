@@ -5564,3 +5564,27 @@ CTO Custom Fix for Portfolio Titles
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+/* =============================================
+   Sidebar Social Icon Fix
+   ============================================= */
+
+/* This rule controls the size of the icons ONLY in the sidebar */
+.sidebar-info .social-link-area ul li a img {
+  width: 15px; /* Adjust this value as needed */
+  height: auto;
+}
+
+/* Rule #2: Keep the hover effect */
+.sidebar-info .social-link-area ul li a:hover i {
+  color: var(--ztc-primary);
+}
+
+/* Rule #3: Keep the horizontal alignment */
+.sidebar-info .social-link-area ul li {
+  display: inline-block;
+  margin-right: 15px;
+}
+.sidebar-info .social-link-area ul li:last-child {
+  margin-right: 0;
+}
